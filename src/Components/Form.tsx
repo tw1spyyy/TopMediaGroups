@@ -8,7 +8,6 @@ import { Button } from "./UI/Button";
 import { Checkbox } from "./UI/Checkbox";
 import { IOption } from "../Types";
 import { signUpValidationSchema } from "../Utils/ValidationSchema";
-import { onSendForm } from "../Utils/SendForm";
 
 export const FormComponent = () => {
 	const formOptions = { resolver: yupResolver(signUpValidationSchema) };
@@ -17,13 +16,26 @@ export const FormComponent = () => {
 		register,
 		formState: { errors },
 		setValue,
+		reset,
 		handleSubmit,
 	} = useForm({ ...formOptions });
 
 	const onChooseCountry = (country: string) => {
 		const code = countries.find((el: IOption) => el.name === country);
-		console.log(code?.code);
 		setValue("phone", code?.code ? +code.code : 0);
+	};
+
+	const onSendForm = (data: {}) => {
+		alert("Your info has been sended, you can check details in console");
+		console.log(data);
+		reset({
+			firstName: "",
+			secondName: "",
+			password: "",
+			repeatPassword: "",
+			email: "",
+			agreement: false,
+		});
 	};
 
 	return (
@@ -37,11 +49,7 @@ export const FormComponent = () => {
 			<InputWrapper>
 				<Input
 					errorText={errors?.firstName ? String(errors?.firstName.message) : ""}
-					{...register("firstName", {
-						onChange: (e) => {
-							console.log(e.target.value);
-						},
-					})}
+					{...register("firstName")}
 					placeholder="First Name"
 					icon="./user.svg"
 				/>

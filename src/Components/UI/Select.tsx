@@ -41,6 +41,7 @@ export const Select = forwardRef((props: SelectProps, ref: any) => {
 			</StyledSelect>
 			<FloatingLabel>{placeholder}</FloatingLabel>
 			<SelectError>{selectedOption ? "" : errorText}</SelectError>
+			<SelectArrow src="./arrow.svg" />
 		</SelectContainer>
 	);
 });
@@ -54,6 +55,11 @@ const SelectError = styled.div`
 	font-size: 10px;
 	font-weight: 500;
 	line-height: 10px;
+`;
+const SelectArrow = styled.img`
+	position: absolute;
+	top: 15px;
+	right: 15px;
 `;
 
 const SelectContainer = styled.div`
